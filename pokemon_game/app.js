@@ -4,17 +4,25 @@ console.log('hi');
 
 const $pokedex = $('#pokedex')
 const pokemonList = []
+
+// Appending pokemon to the page =========================//
 const displayPokemon = (pokemon) => {
     pokemon = $(`
         <div class="pokemon">
-            <img src="${pokemon.image}" alt="${pokemon.name}"/>
-            <h2>${pokemon.id}. ${pokemon.name}</h2>
-            <p>Power: 50</p>
-        </div>`
-    );
+            <a href="pages/battle.html">
+                <img src="${pokemon.image}" alt="${pokemon.name}"/>
+            </a>
+            <div class="pokemon-info">
+                <h2>${pokemon.id}. ${pokemon.name}</h2>
+                <p>Power: 50</p>
+            </div>
+        </div>
+    `)
+    
+
     $pokedex.append(pokemon)
 }
-
+//=========================================================//
 $(() => {
     const getPokemon = () => {
         for (let i = 1; i <= 150; i++){
@@ -32,6 +40,7 @@ $(() => {
                     id: data.id,
                     image: data.sprites['front_default'],
                 }
+
 
                 // console.log($pokemonInfo);
                 displayPokemon($pokemon)
@@ -64,21 +73,8 @@ $(() => {
         }
         $('#pokedex').children().eq(currentImgIndex).css('display', 'block');
     })
-    // console.log(pokemonList);
+//==================================================================//
 }
 getPokemon()
 
 })
-
-// console.log(pokemonList);
-
-// const displayPokemon = (pokemon) => {
-//     pokemon = $(`
-//         <div class="pokemon">
-//             <img src="${pokemon.image}"/>
-//             <h2>${pokemon.id}. ${pokemon.name}</h2>
-//             <p>Power: 50</p>
-//         </div>`
-//     );
-//     $pokedex.append(pokemon)
-// }

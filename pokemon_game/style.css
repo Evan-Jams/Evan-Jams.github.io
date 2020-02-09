@@ -9,3 +9,8 @@
 #pokedex > div:first-of-type {
     display: block;
 }
+
+a {
+    height: 20px;
+    width: 20px;
+}
