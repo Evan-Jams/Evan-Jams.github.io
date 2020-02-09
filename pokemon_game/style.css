@@ -1,0 +1,11 @@
+* {
+    background-color: gainsboro;
+}
+
+.pokemon {
+    display: none;
+}
+
+#pokedex > div:first-of-type {
+    display: block;
+}
