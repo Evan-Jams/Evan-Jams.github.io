@@ -1,27 +1,13 @@
-console.log('hi');
+// console.log('hi');
 
 
 
 const $pokedex = $('#pokedex')
 const pokemonList = []
 
-// Appending pokemon to the page =========================//
-const displayPokemon = (pokemon) => {
-    pokemon = $(`
-        <div class="pokemon">
-            <a href="pages/battle.html">
-                <img src="${pokemon.image}" alt="${pokemon.name}"/>
-            </a>
-            <div class="pokemon-info">
-                <h2>${pokemon.id}. ${pokemon.name}</h2>
-                <p>Power: 50</p>
-            </div>
-        </div>
-    `)
-    
 
-    $pokedex.append(pokemon)
-}
+
+
 //=========================================================//
 $(() => {
     const getPokemon = () => {
@@ -35,7 +21,7 @@ $(() => {
 
             }).then((data) => {
                 // console.log(data);
-                const $pokemon = {
+                const pokemon = {
                     name: data.name,
                     id: data.id,
                     image: data.sprites['front_default'],
@@ -43,11 +29,31 @@ $(() => {
 
 
                 // console.log($pokemonInfo);
-                displayPokemon($pokemon)
-                pokemonList.push($pokemon);
+                displayPokemon(pokemon)
+                pokemonList.push(pokemon);
             })
 
         }
+        // sort array based on $pokemon id
+    }
+
+// Appending pokemon to the page =========================//
+const displayPokemon = (pokemon) => {
+    pokemon = $(`
+        <div class="pokemon">
+            <a href="pages/battle.html?id=${pokemon.id}">
+                <img src="${pokemon.image}" alt="${pokemon.name}"/>
+            </a>
+            <div class="pokemon-info">
+                <h2>${pokemon.id}. ${pokemon.name}</h2>
+                <p>Power: 50</p>
+            </div>
+        </div>
+    `)
+
+    $pokedex.append(pokemon)
+}
+
 // Cycling through the pokedex functions =========================//
         let currentImgIndex = 0
         let maxIndex = 149
@@ -60,7 +66,6 @@ $(() => {
         } else {
             currentImgIndex = 0
         }
-
         $('#pokedex').children().eq(currentImgIndex).css('display', 'block');
     })
     $('#previous').on('click', (event) => {
@@ -69,12 +74,12 @@ $(() => {
         if (currentImgIndex > 0) {
             currentImgIndex--
         } else {
-            currentImgIndex = 149
+            currentImgIndex = maxIndex
         }
         $('#pokedex').children().eq(currentImgIndex).css('display', 'block');
     })
 //==================================================================//
-}
+
 getPokemon()
 
 })
