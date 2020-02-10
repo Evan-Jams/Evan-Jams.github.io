@@ -1,6 +1,6 @@
 const $pokedex = $('#pokedex')
 const $enemy = $('#enemy')
-const pokemonList = []
+let pokemonList = []
 const randomInt = () => {
     return Math.floor(Math.random() * 149)
 }
@@ -17,21 +17,6 @@ const closeModal = () => {
     $modal.css('display', 'none');
 }
 
-$openButton.on('click', (event) => {
-    $openButton.hide();
-    openModal()
-});
-
-$runButton.on('click', () => {
-    closeModal();
-    $openButton.show()
-});
-
-$fightButton.on('click', () => {
-    closeModal();
-    $enemy.css('display', 'block')
-    // pokemon.attack()
-});
 
 // ********************************************************//
 // Getting the id of the pokemon clicked on home page //
@@ -54,31 +39,30 @@ class PokemonFighter {
         this.image = image;
     }
     checkEnemy(enemy) {
-        if(Math.random() <= enemy.accuracy) {
+        let i = Math.random()
+        if(i <= enemy.accuracy) {
             console.log(this.name, 'has been hit!');
             this.health -= enemy.power
             openModal();
             console.log(this.health);
-        } else if (Math.random() > enemy.accuracy) {
+        } else {
             openModal();
             console.log(enemy.name, 'has missed their attack');
-        } else {
-            console.log('something went wrong');
         }
     }
 
     attack(enemy) {
-        if (Math.random() <= this.accuracy) {
+        let i = Math.random()
+        if (i <= this.accuracy) {
             console.log(enemy.name, 'has been hit!');
             enemy.health -= this.power;
             console.log(enemy.health);
-        } else if (Math.random() > this.accuracy) {
+        } else {
             console.log(this.name, 'has missed their attack');
-            // enemy.attack(this);
         };
         if (enemy.health > 0) {
             this.checkEnemy(enemy)
-        } else if (enemy.health <= 0) {
+        } else {
             console.log('You have defeated', enemy.name, '.', enemy.name, 'is too weak to continue');
             $enemy.css('display', 'none')
         }
@@ -90,6 +74,25 @@ class PokemonFighter {
 //================== On Load Function ==================//
 
 $(() => {
+    $openButton.on('click', (event) => {
+        $openButton.hide();
+        $enemy.css('display', 'block')
+        openModal()
+    });
+
+    $runButton.on('click', () => {
+        closeModal();
+        $enemy.css('display', 'none')
+        $enemy.empty()
+        getEnemy(randomInt())
+        $openButton.show()
+    });
+
+    $fightButton.on('click', () => {
+        closeModal();
+        $enemy.css('display', 'block')
+        // pokemon.attack()
+    });
     const getPokemon = (i) => {
 
             const $url = (`https://pokeapi.co/api/v2/pokemon/${i}`)
