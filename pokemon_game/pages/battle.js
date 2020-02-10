@@ -4,12 +4,43 @@ const pokemonList = []
 const randomInt = () => {
     return Math.floor(Math.random() * 149)
 }
+const $openButton = $('#call-button');
+const $modal = $('#modal');
+const $runButton = $('#run')
+const $fightButton = $('#fight')
+
+const openModal = () => {
+    $modal.css('display', 'block');
+}
+const closeModal = () => {
+    $modal.css('display', 'none');
+}
+
+$openButton.on('click', (event) => {
+    $openButton.hide();
+    openModal()
+});
+
+$runButton.on('click', () => {
+    closeModal();
+    $openButton.show()
+});
+
+$fightButton.on('click', () => {
+    closeModal();
+    $enemy.css('display', 'block')
+    // pokemon.attack()
+});
+// ********************************************************//
+// Getting the id of the pokemon clicked on home page //
+// ********************************************************//
+
+let params = new window.URLSearchParams(window.location.search);
 
 
 // **********************************************************//
 // Pokemon battle classes ===================================//
 // **********************************************************//
-
 
 class PokemonFighter {
     constructor(name, health, power, accuracy, id, image) {
@@ -25,25 +56,16 @@ class PokemonFighter {
             console.log(enemy.name, 'has been hit!');
             enemy.health -= this.power;
             console.log(enemy.health);
+            if( enemy.health > 0){
+                enemy.attack(this);
+                openModal();
+            } else {
+                console.log(enemy.name, 'is to weak to continue');
+            }
+
         }
     }
 }
-
-// ********************************************************//
-// ********************************************************//
-
-
-
-
-// ********************************************************//
-// Getting the id of the pokemon clicked on home page //
-// ********************************************************//
-
-let params = new window.URLSearchParams(window.location.search);
-
-
-// ********************************************************//
-// ********************************************************//
 
 
 
@@ -62,10 +84,15 @@ $(() => {
             }).then((data) => {
 
                 const pokemon = new PokemonFighter(data.name, 100, 50, .7, data.id, data.sprites['front_default'])
+                $fightButton.on('click', () => {
+                    closeModal();
+                    $enemy.css('display', 'block')
+                    pokemon.attack(pokemonList[0])
+                });
 
                 // console.log($pokemonInfo);
                 displayPokemon(pokemon)
-                pokemonList.push(pokemon);
+
             })
     }
     const getEnemy = (i) => {
@@ -79,37 +106,45 @@ $(() => {
 
             }).then((data) => {
 
-                const pokemon = new PokemonFighter(data.name, 150, 25, .5, data.id, data.sprites['front_default'])
-
+                const enemy = new PokemonFighter(data.name, 150, 25, .5, data.id, data.sprites['front_default'])
 
                 // console.log($pokemonInfo);
-                displayEnemy(pokemon)
-                // pokemonList.push(pokemon);
+                displayEnemy(enemy)
+                pokemonList.push(enemy);
+
             })
     }
 // ********************************************************//
 // Open modal functionality ==============================//
 // ********************************************************//
-
-const $openButton = $('#call-button');
-const $modal = $('#modal');
-const $runButton = $('#run')
-const $fightButton = $('#fight')
-
-const openModal = () => {
-    $modal.css('display', 'block');
-}
-const closeModal = () => {
-    $modal.css('display', 'none');
-}
-
-$openButton.on('click', (event) => {
-    $openButton.hide();
-    openModal()
-});
-
-$runButton.on('click', closeModal);
-$fightButton.on('click', closeModal);
+console.log(pokemonList);
+// const $openButton = $('#call-button');
+// const $modal = $('#modal');
+// const $runButton = $('#run')
+// const $fightButton = $('#fight')
+//
+// const openModal = () => {
+//     $modal.css('display', 'block');
+// }
+// const closeModal = () => {
+//     $modal.css('display', 'none');
+// }
+//
+// $openButton.on('click', (event) => {
+//     $openButton.hide();
+//     openModal()
+// });
+//
+// $runButton.on('click', () => {
+//     closeModal();
+//     $openButton.show()
+// });
+//
+// $fightButton.on('click', () => {
+//     closeModal();
+//     $enemy.css('display', 'block')
+//     // pokemon.attack()
+// });
 
 
 

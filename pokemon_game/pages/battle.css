@@ -56,6 +56,10 @@ h2 {
     border-radius: 5px;
     box-shadow: 2px 2px 1px black;
 }
+
+#enemy {
+    display: none;
+}
 /* *********************** */
 /*     Pokemon styling     */
 /* *********************** */
@@ -85,4 +89,14 @@ img {
 
 #pokedex > div:first-of-type {
     display: block;
+}
+
+/* Modal Styling */
+#modal {
+    display: none;
+}
+
+#modal > h1 {
+    background-color: #fff;
+    font-size: 2vw;
 }
