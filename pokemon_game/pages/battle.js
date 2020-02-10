@@ -4,11 +4,51 @@ const pokemonList = []
 const randomInt = () => {
     return Math.floor(Math.random() * 149)
 }
-console.log(randomInt());
-let params = new window.URLSearchParams(window.location.search);
-// alert(params.get('id'))
 
-//=========================================================//
+
+// **********************************************************//
+// Pokemon battle classes ===================================//
+// **********************************************************//
+
+
+class PokemonFighter {
+    constructor(name, health, power, accuracy, id, image) {
+        this.name = name;
+        this.health = health;
+        this.power = power;
+        this.accuracy = accuracy;
+        this.id = id;
+        this.image = image;
+    }
+    attack(enemy) {
+        if( Math.random() < this.accuracy ) {
+            console.log(enemy.name, 'has been hit!');
+            enemy.health -= this.power;
+            console.log(enemy.health);
+        }
+    }
+}
+
+// ********************************************************//
+// ********************************************************//
+
+
+
+
+// ********************************************************//
+// Getting the id of the pokemon clicked on home page //
+// ********************************************************//
+
+let params = new window.URLSearchParams(window.location.search);
+
+
+// ********************************************************//
+// ********************************************************//
+
+
+
+//================== On Load Function ==================//
+
 $(() => {
     const getPokemon = (i) => {
 
@@ -20,13 +60,8 @@ $(() => {
                 async: false,
 
             }).then((data) => {
-                // console.log(data);
-                const pokemon = {
-                    name: data.name,
-                    id: data.id,
-                    image: data.sprites['front_default'],
-                }
 
+                const pokemon = new PokemonFighter(data.name, 100, 50, .7, data.id, data.sprites['front_default'])
 
                 // console.log($pokemonInfo);
                 displayPokemon(pokemon)
@@ -34,7 +69,7 @@ $(() => {
             })
     }
     const getEnemy = (i) => {
-        console.log(i);
+        // console.log(i);
             const $url = (`https://pokeapi.co/api/v2/pokemon/${i}`)
 
             $.ajax ({
@@ -43,12 +78,8 @@ $(() => {
                 async: false,
 
             }).then((data) => {
-                // console.log(data);
-                const pokemon = {
-                    name: data.name,
-                    id: data.id,
-                    image: data.sprites['front_default'],
-                }
+
+                const pokemon = new PokemonFighter(data.name, 150, 25, .5, data.id, data.sprites['front_default'])
 
 
                 // console.log($pokemonInfo);
@@ -56,17 +87,43 @@ $(() => {
                 // pokemonList.push(pokemon);
             })
     }
+// ********************************************************//
+// Open modal functionality ==============================//
+// ********************************************************//
 
+const $openButton = $('#call-button');
+const $modal = $('#modal');
+const $runButton = $('#run')
+const $fightButton = $('#fight')
+
+const openModal = () => {
+    $modal.css('display', 'block');
+}
+const closeModal = () => {
+    $modal.css('display', 'none');
+}
+
+$openButton.on('click', (event) => {
+    $openButton.hide();
+    openModal()
+});
+
+$runButton.on('click', closeModal);
+$fightButton.on('click', closeModal);
+
+
+
+// *******************************************************//
 // Appending pokemon to the page =========================//
+// *******************************************************//
 const displayPokemon = (pokemon) => {
     pokemon = $(`
         <div class="pokemon">
-            <a href="pages/battle.html?id=${pokemon.id}">
                 <img src="${pokemon.image}" alt="${pokemon.name}"/>
-            </a>
             <div class="pokemon-info">
                 <h2>${pokemon.id}. ${pokemon.name}</h2>
-                <p>Power: 50</p>
+                <p>HP: ${pokemon.health}</p>
+                <p>Power: ${pokemon.power}</p>
             </div>
         </div>
     `)
@@ -77,12 +134,11 @@ const displayPokemon = (pokemon) => {
 const displayEnemy = (enemy) => {
     enemy = $(`
         <div class="enemy">
-            <a href="pages/battle.html?id=${enemy.id}">
                 <img src="${enemy.image}" alt="${enemy.name}"/>
-            </a>
             <div class="pokemon-info">
                 <h2>${enemy.id}. ${enemy.name}</h2>
-                <p>Power: 25</p>
+                <p>HP: ${enemy.health}</p>
+                <p>Power: ${enemy.power}</p>
             </div>
         </div>
     `)
@@ -90,31 +146,6 @@ const displayEnemy = (enemy) => {
     $enemy.append(enemy)
 }
 
-// Cycling through the pokedex functions =========================//
-    //     let currentImgIndex = 0
-    //     let maxIndex = 149
-    //
-    // $('#next').on('click', (event) => {
-    //     event.preventDefault();
-    //     $('#pokedex').children().eq(currentImgIndex).css('display', 'none');
-    //     if (currentImgIndex < maxIndex) {
-    //         currentImgIndex++
-    //     } else {
-    //         currentImgIndex = 0
-    //     }
-    //     $('#pokedex').children().eq(currentImgIndex).css('display', 'block');
-    // })
-    // $('#previous').on('click', (event) => {
-    //     event.preventDefault();
-    //     $('#pokedex').children().eq(currentImgIndex).css('display', 'none');
-    //     if (currentImgIndex > 0) {
-    //         currentImgIndex--
-    //     } else {
-    //         currentImgIndex = maxIndex
-    //     }
-    //     $('#pokedex').children().eq(currentImgIndex).css('display', 'block');
-    // })
-//==================================================================//
 
 getPokemon(params.get('id'))
 getEnemy(randomInt())
