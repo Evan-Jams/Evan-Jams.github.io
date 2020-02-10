@@ -100,3 +100,9 @@ img {
     background-color: #fff;
     font-size: 2vw;
 }
+
+#call-button {
+    height: 8vh;
+    width: 13vw;
+    font-size: 2vw;
+}

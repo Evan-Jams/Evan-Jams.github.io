@@ -9,6 +9,7 @@ const $modal = $('#modal');
 const $runButton = $('#run')
 const $fightButton = $('#fight')
 
+// Modal functionality ========================//
 const openModal = () => {
     $modal.css('display', 'block');
 }
@@ -31,6 +32,7 @@ $fightButton.on('click', () => {
     $enemy.css('display', 'block')
     // pokemon.attack()
 });
+
 // ********************************************************//
 // Getting the id of the pokemon clicked on home page //
 // ********************************************************//
@@ -51,22 +53,38 @@ class PokemonFighter {
         this.id = id;
         this.image = image;
     }
+    checkEnemy(enemy) {
+        if(Math.random() <= enemy.accuracy) {
+            console.log(this.name, 'has been hit!');
+            this.health -= enemy.power
+            openModal();
+            console.log(this.health);
+        } else if (Math.random() > enemy.accuracy) {
+            openModal();
+            console.log(enemy.name, 'has missed their attack');
+        } else {
+            console.log('something went wrong');
+        }
+    }
+
     attack(enemy) {
-        if( Math.random() < this.accuracy ) {
+        if (Math.random() <= this.accuracy) {
             console.log(enemy.name, 'has been hit!');
             enemy.health -= this.power;
             console.log(enemy.health);
-            if( enemy.health > 0){
-                enemy.attack(this);
-                openModal();
-            } else {
-                console.log(enemy.name, 'is to weak to continue');
-            }
-
+        } else if (Math.random() > this.accuracy) {
+            console.log(this.name, 'has missed their attack');
+            // enemy.attack(this);
+        };
+        if (enemy.health > 0) {
+            this.checkEnemy(enemy)
+        } else if (enemy.health <= 0) {
+            console.log('You have defeated', enemy.name, '.', enemy.name, 'is too weak to continue');
+            $enemy.css('display', 'none')
         }
     }
-}
 
+}
 
 
 //================== On Load Function ==================//
@@ -117,35 +135,6 @@ $(() => {
 // ********************************************************//
 // Open modal functionality ==============================//
 // ********************************************************//
-console.log(pokemonList);
-// const $openButton = $('#call-button');
-// const $modal = $('#modal');
-// const $runButton = $('#run')
-// const $fightButton = $('#fight')
-//
-// const openModal = () => {
-//     $modal.css('display', 'block');
-// }
-// const closeModal = () => {
-//     $modal.css('display', 'none');
-// }
-//
-// $openButton.on('click', (event) => {
-//     $openButton.hide();
-//     openModal()
-// });
-//
-// $runButton.on('click', () => {
-//     closeModal();
-//     $openButton.show()
-// });
-//
-// $fightButton.on('click', () => {
-//     closeModal();
-//     $enemy.css('display', 'block')
-//     // pokemon.attack()
-// });
-
 
 
 // *******************************************************//
