@@ -7,34 +7,36 @@ body {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    background-color: rgba(150, 18, 17, .9);
-    width: 90%;
+    background-color: rgb(150, 18, 17);
+    width: 100%;
     height: 100vh;
     text-align: center;
     margin: auto;
 }
 header {
-    background-color: rgba(150, 18, 17, .9);
+    background-color: rgb(150, 18, 17);
+    color: yellow;
 }
 
 h1, h2 {
-    background-color: rgba(150, 18, 17, .9);
+    background-color: rgb(150, 18, 17);
     margin: 0;
     padding: 3%;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 h1 {
-    font-size: 10vw;
+    font-size: 8vw;
+    margin-bottom: 10%;
 }
 
-h2 {
-    font-size: 7vw;
-}
 
 .container {
     display: flex;
     justify-content: center;
-    background-color: rgba(150, 18, 17, .9);
+    flex-direction: column;
+    background-color: rgb(150, 18, 17);
+    align-items: center;
 }
 
 .cycle-buttons {
@@ -80,7 +82,7 @@ img {
 .pokemon-info > h2 {
     background-color: #fff;
     font-size: 3vw;
-
+    text-shadow: none;
 }
 
 .pokemon-info > p {
@@ -91,14 +93,22 @@ img {
     display: block;
 }
 
-/* Modal Styling */
+#arena {
+    background-color: rgb(150, 18, 17);
+}
+
+/* *********************** */
+/*     Modal styling     */
+/* *********************** */
 #modal {
     display: none;
+
 }
 
 #modal > h1 {
     background-color: #fff;
     font-size: 2vw;
+    text-shadow: none;
 }
 
 #call-button {

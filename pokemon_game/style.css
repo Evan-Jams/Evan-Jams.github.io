@@ -7,20 +7,22 @@ body {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    background-color: rgba(150, 18, 17, .9);
-    width: 90%;
+    background-color: rgb(150, 18, 17);
+    width: 100%;
     height: 100vh;
     text-align: center;
     margin: auto;
 }
 header {
-    background-color: rgba(150, 18, 17, .9);
+    background-color: rgb(150, 18, 17);
+    color: yellow;
 }
 
 h1, h2 {
-    background-color: rgba(150, 18, 17, .9);
+    background-color: rgb(150, 18, 17);
     margin: 0;
     padding: 3%;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 h1 {
@@ -34,7 +36,8 @@ h2 {
 .container {
     display: flex;
     justify-content: center;
-    background-color: rgba(150, 18, 17, .9);
+    background-color: rgb(150, 18, 17);
+    margin: 20% auto;
 }
 
 .cycle-buttons {
@@ -70,13 +73,13 @@ img {
 
 .pokemon-info {
     border-top: 1px solid grey;
-
+    background-color: #fff;
 }
 
 .pokemon-info > h2 {
     background-color: #fff;
     font-size: 3vw;
-
+    text-shadow: none;
 }
 
 .pokemon-info > p {

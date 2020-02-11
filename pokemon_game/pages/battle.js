@@ -29,46 +29,53 @@ let params = new window.URLSearchParams(window.location.search);
 // Pokemon battle classes ===================================//
 // **********************************************************//
 
-class PokemonFighter {
-    constructor(name, health, power, accuracy, id, image) {
-        this.name = name;
-        this.health = health;
-        this.power = power;
-        this.accuracy = accuracy;
-        this.id = id;
-        this.image = image;
-    }
-    checkEnemy(enemy) {
-        let i = Math.random()
-        if(i <= enemy.accuracy) {
-            console.log(this.name, 'has been hit!');
-            this.health -= enemy.power
-            openModal();
-            console.log(this.health);
-        } else {
-            openModal();
-            console.log(enemy.name, 'has missed their attack');
-        }
-    }
-
-    attack(enemy) {
-        let i = Math.random()
-        if (i <= this.accuracy) {
-            console.log(enemy.name, 'has been hit!');
-            enemy.health -= this.power;
-            console.log(enemy.health);
-        } else {
-            console.log(this.name, 'has missed their attack');
-        };
-        if (enemy.health > 0) {
-            this.checkEnemy(enemy)
-        } else {
-            console.log('You have defeated', enemy.name, '.', enemy.name, 'is too weak to continue');
-            $enemy.css('display', 'none')
-        }
-    }
-
-}
+// class PokemonFighter {
+//     constructor(name, health, power, accuracy, id, image) {
+//         this.name = name;
+//         this.health = health;
+//         this.power = power;
+//         this.accuracy = accuracy;
+//         this.id = id;
+//         this.image = image;
+//     }
+//     checkEnemy(enemy) {
+//         let i = Math.random()
+//         if(i <= enemy.accuracy) {
+//             console.log(this.name, 'has been hit!');
+//             this.health -= enemy.power
+//             openModal();
+//             console.log(this.health);
+//         } else {
+//             openModal();
+//             console.log(enemy.name, 'has missed their attack');
+//         }
+//     }
+//
+//     attack(enemy) {
+//         let i = Math.random()
+//         if (this.health <= 0) {
+//             console.log(this.name, 'has been defeated! Reload the page or go back and pick another pokemon');
+//             $pokedex.css('display', 'none')
+//         }
+//         if (i <= this.accuracy) {
+//             console.log(enemy.name, 'has been hit!');
+//             enemy.health -= this.power;
+//             console.log(enemy.health);
+//         } else {
+//             console.log(this.name, 'has missed their attack');
+//         };
+//         if (enemy.health > 0) {
+//             this.checkEnemy(enemy)
+//         } else {
+//             console.log('You have defeated', enemy.name, '.', enemy.name, 'is too weak to continue');
+//             $enemy.css('display', 'none')
+//             $openButton.show()
+//             $enemy.empty()
+//             getEnemy(randomInt())
+//         }
+//     }
+//
+// }
 
 
 //================== On Load Function ==================//
@@ -90,9 +97,58 @@ $(() => {
 
     $fightButton.on('click', () => {
         closeModal();
+        $('.pokemon-info').hide()
+        $modal.children('h1').html('You are currently in battle')
         $enemy.css('display', 'block')
         // pokemon.attack()
     });
+
+    class PokemonFighter {
+        constructor(name, health, power, accuracy, id, image) {
+            this.name = name;
+            this.health = health;
+            this.power = power;
+            this.accuracy = accuracy;
+            this.id = id;
+            this.image = image;
+        }
+        checkEnemy(enemy) {
+            let i = Math.random()
+            if(i <= enemy.accuracy) {
+                console.log(this.name, 'has been hit!');
+                this.health -= enemy.power
+                openModal();
+                console.log(this.health);
+            } else {
+                openModal();
+                console.log(enemy.name, 'has missed their attack');
+            }
+        }
+
+        attack(enemy) {
+            let i = Math.random()
+            if (this.health <= 0) {
+                console.log(this.name, 'has been defeated! Reload the page or go back and pick another pokemon');
+                $pokedex.css('display', 'none')
+            }
+            if (i <= this.accuracy) {
+                console.log(enemy.name, 'has been hit!');
+                enemy.health -= this.power;
+                console.log(enemy.health);
+            } else {
+                console.log(this.name, 'has missed their attack');
+            };
+            if (enemy.health > 0) {
+                this.checkEnemy(enemy)
+            } else {
+                console.log('You have defeated', enemy.name, '.', enemy.name, 'is too weak to continue');
+                $enemy.css('display', 'none');
+                alert('You have defeated your enemy. To play again, reload the page or go back and pick another pokemon.')
+            }
+        }
+
+    }
+
     const getPokemon = (i) => {
 
             const $url = (`https://pokeapi.co/api/v2/pokemon/${i}`)
