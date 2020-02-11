@@ -1,6 +1,6 @@
 * {
     background-color: #fff;
-    /* border: 1px solid grey; */
+    border: 1px solid grey;
 }
 
 body {
@@ -8,14 +8,16 @@ body {
     justify-content: flex-start;
     flex-direction: column;
     background-color: rgb(150, 18, 17);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     text-align: center;
     margin: auto;
+    border: 5px solid black;
 }
 header {
     background-color: rgb(150, 18, 17);
     color: yellow;
+    border-bottom: 4px solid black;
 }
 
 h1, h2 {
@@ -40,24 +42,16 @@ h2 {
     margin: 20% auto;
 }
 
-.cycle-buttons {
-    display: flex;
-    justify-content: center;
-    background-color: silver;
-    box-shadow: 2px 2px 2px black;
-    border-radius: 5px;
-    margin: 1%;
-    width: 5vw;
-    font-size: 3vw;
-    align-items: center;
-}
-
-#pokedex, #enemy {
+#pokedex {
     width: 41vw;
     margin: 1%;
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 2px 2px 1px black;
+}
+
+#pokedex:active {
+    animation: bounce .7s linear;
 }
 /* *********************** */
 /*     Pokemon styling     */
@@ -66,6 +60,11 @@ h2 {
     display: none;
     border-radius: 5px;
 }
+
+/* .pokemon:hover {
+    animation: bounce 2s linear;
+    animation-iteration-count: infinite;
+} */
 
 img {
     width: 40vw;
@@ -88,4 +87,59 @@ img {
 
 #pokedex > div:first-of-type {
     display: block;
+}
+
+/* *********************** */
+/*     Side arrows styles     */
+/* *********************** */
+
+.cycle-buttons {
+    display: flex;
+    justify-content: center;
+    background-color: silver;
+    box-shadow: 2px 2px 2px black;
+    border-radius: 5px;
+    margin: 1%;
+    width: 5vw;
+    font-size: 3vw;
+    align-items: center;
+
+}
+
+.cycle-buttons:active {
+    animation: zoom-in .1s;
+}
+
+/* *********************** */
+/*         Keyframes       */
+/* *********************** */
+
+@keyframes zoom-in {
+    0% {
+        transform: scale(1)
+    }
+    100% {
+        transform: scale(1.1)
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(-8px);
+    }
+    20% {
+        transform: translateY(0px);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(0px);
+    }
+    80% {
+        transform: translateY(-3px);
+    }
+    100% {
+        transform: translateY(0px)
+    }
 }
