@@ -1,6 +1,6 @@
 * {
     background-color: #fff;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
 }
 
 body {
@@ -9,7 +9,7 @@ body {
     flex-direction: column;
     background-color: rgb(150, 18, 17);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     text-align: center;
     margin: auto;
     border: 5px solid black;
@@ -23,27 +23,28 @@ header {
 h1, h2 {
     background-color: rgb(150, 18, 17);
     margin: 0;
-    padding: 3%;
+    padding: 1%;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 h1 {
-    font-size: 10vw;
+    font-size: 40px;
 }
 
 h2 {
-    font-size: 7vw;
+    font-size: 30px;
+    color: gainsboro;
 }
 
 .container {
     display: flex;
     justify-content: center;
     background-color: rgb(150, 18, 17);
-    margin: 20% auto;
+    margin: 30px auto;
 }
 
 #pokedex {
-    width: 41vw;
+    width: 30vw;
     margin: 1%;
     border: 1px solid black;
     border-radius: 5px;
@@ -61,13 +62,9 @@ h2 {
     border-radius: 5px;
 }
 
-/* .pokemon:hover {
-    animation: bounce 2s linear;
-    animation-iteration-count: infinite;
-} */
 
 img {
-    width: 40vw;
+    width: 30vw;
 }
 
 .pokemon-info {
@@ -79,6 +76,7 @@ img {
     background-color: #fff;
     font-size: 3vw;
     text-shadow: none;
+    color: black;
 }
 
 .pokemon-info > p {
