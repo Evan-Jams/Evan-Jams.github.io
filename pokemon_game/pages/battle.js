@@ -33,13 +33,14 @@ $(() => {
 
     $openButton.on('click', (event) => {
         $openButton.hide();
-        $enemy.css('display', 'block')
+        $('.enemy').css('display', 'block')
         openModal()
     });
 
     $runButton.on('click', () => {
         closeModal();
-        $enemy.css('display', 'none')
+        $('.pokemon-info').show()
+        $('.enemy').css('display', 'none')
         $enemy.empty()
         getEnemy(randomInt())
         $openButton.show()
@@ -49,7 +50,6 @@ $(() => {
         closeModal();
         $('.pokemon-info').hide()
         $modal.children('h1').html('You are currently in battle')
-        // $enemy.css('display', 'block')
     });
 
 // **********************************************************//
