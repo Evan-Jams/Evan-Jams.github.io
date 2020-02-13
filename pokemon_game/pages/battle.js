@@ -2,7 +2,7 @@ const $pokedex = $('#pokedex')
 const $enemy = $('#enemy')
 let pokemonList = []
 const randomInt = () => {
-    return Math.floor(Math.random() * 149)
+    return Math.floor(Math.random() * 150)
 }
 const $openButton = $('#call-button');
 const $modal = $('#modal');
@@ -85,10 +85,8 @@ $(() => {
                 $pokedex.css('display', 'none')
             }
             if (i <= this.accuracy) {
-
                 enemy.health -= this.power;
                 alert(`${enemy.name} has been hit! ${enemy.name} has ${enemy.health} health left!`);
-                // console.log(enemy.health);
             } else {
                 alert(`${this.name} has missed their attack`);
             };
@@ -97,6 +95,8 @@ $(() => {
             } else {
                 alert(`You have defeated ${enemy.name}! ${enemy.name} is too weak to continue`);
                 $enemy.css('display', 'none');
+                $('img').css('animation', 'victory 1s 1 linear');
+                $('.pokemon').css('animation', 'spin .5s 1 linear');
                 alert(`You have defeated your enemy. To play again, reload the page or go back and pick another pokemon.`)
             }
         }
